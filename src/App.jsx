@@ -8,18 +8,28 @@ function App() {
   const [todoList, setTodoList] = useState([]);
 
   const addTask = () => {
-    const newTask = { taskName: task, deadline };
-    setTodoList([...todoList, newTask]);
-    setTask("");
-    setDeadline(0);
+    const newTask = { 
+      taskName: task, 
+      deadline: deadline };
+
+    if(!task || deadline <= 0){
+      alert("valores inválidos")
+    }else {
+      setTodoList([...todoList, newTask]);
+      setTask("");
+      setDeadline(0);
+    }
+
   };
 
   const completeTask = (taskNameToDelete) => {
     setTodoList(
       todoList.filter((task) => {
-        return task.taskName !== taskNameToDelete;
+        return (task.taskName !== taskNameToDelete);
       })
     );
+    console.log(taskNameToDelete)
+    console.log("I'm here")
   };
 
   const handleChange = (event) => {
@@ -56,7 +66,7 @@ function App() {
             <div key={key}>
               <h3>{task.taskName}</h3>
               <h4>{task.deadline}</h4>
-              <button onClick={() => {completeTask(task.taskname)}}>Finalizar tarefa</button>
+              <button onClick={() => completeTask(task.taskName)}>Finalizar tarefa</button>
               <h2>- - - - - - - - - </h2>
             </div>
           );
