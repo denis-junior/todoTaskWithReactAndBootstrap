@@ -46,10 +46,10 @@ function App() {
   return (
     <div className="App">
       <header>
-        <label htmlFor="">taskname</label>
+        <label>taskname</label>
         <input type="text" name="task" value={task} onChange={handleChange} />
 
-        <label htmlFor="">deadline</label>
+        <label>deadline</label>
         <input
           type="number"
           name="deadline"
