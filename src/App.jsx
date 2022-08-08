@@ -3,14 +3,12 @@ import Header from "./components/Header";
 import TodoTask from "./components/TodoTask";
 
 function App() {
-  
-  const [task, setTask] = useState("")
-  const [deadline, setDeadline] = useState(0)
-  const [todoList, setTodoList] = useState([])
+  const [task, setTask] = useState("");
+  const [deadline, setDeadline] = useState(0);
+  const [todoList, setTodoList] = useState([]);
 
   const addTask = () => {
     const newTask = { taskName: task, deadline };
-    console.log(newTask)
     setTodoList([...todoList, newTask]);
     setTask("");
     setDeadline(0);
@@ -25,19 +23,48 @@ function App() {
   };
 
   const handleChange = (event) => {
+    //console.log(event.target.name)
     if (event.target.name === "task") {
-      console.log(event.target.name + "\n value:" + event.target.value)
+      //console.log(event.target.name + "\n value:" + event.target.value)
       setTask(event.target.value);
     } else {
-      console.log(event.target.name + "\n value:" + event.target.value)
+      //console.log(event.target.name + "\n value:" + event.target.value)
       setDeadline(Number(event.target.value));
     }
   };
 
   return (
     <div className="App">
-      <Header task={task} setTask={setTask} deadline={deadline} addTask={addTask} handleChange={handleChange}/>
-      <TodoTask todoList={todoList} completeTask={completeTask}/>
+      <header>
+        <label htmlFor="">taskname</label>
+        <input type="text" name="task" value={task} onChange={handleChange} />
+
+        <label htmlFor="">deadline</label>
+        <input
+          type="number"
+          name="deadline"
+          value={deadline}
+          onChange={handleChange}
+        />
+
+        <button onClick={() => addTask()}>Add Task</button>
+      </header>
+
+      <div>
+        {todoList.map((task, key) => {
+          return (
+            <div key={key}>
+              <h3>{task.taskName}</h3>
+              <h4>{task.deadline}</h4>
+              <button onClick={() => {completeTask(task.taskname)}}>Finalizar tarefa</button>
+              <h2>- - - - - - - - - </h2>
+            </div>
+          );
+        })}
+      </div>
+
+      {/*<Header task={task} setTask={setTask} deadline={deadline} addTask={addTask} handleChange={handleChange}/>
+      <TodoTask todoList={todoList} completeTask={completeTask}/>*/}
     </div>
   );
 }
